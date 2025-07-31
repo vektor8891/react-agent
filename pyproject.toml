@@ -3,7 +3,7 @@ name = "react-agent"
 version = "0.1.0"
 description = "LangGraph ReAct agent"
 authors = [
-    {name = "Viktor Szabo",email = "szabo_viktor@lilly.com"}
+    {name = "Viktor Szabo",email = "vszabo@protonmail.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.12"
