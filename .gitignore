@@ -8,6 +8,15 @@
 # Google Cloud credentials
 service-account-key.json
 *-key.json
+*.json
+!pyproject.json
+!package.json
+!tsconfig.json
+!credentials/README.md
+!credentials/.gitkeep
+react-agent-467614-0289056c8bae.json
+credentials/*.json
+.gcp/
 
 # Python
 __pycache__/

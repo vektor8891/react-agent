@@ -91,17 +91,53 @@ This script will verify:
 - Application Default Credentials
 - Google Cloud Storage connection
 
-### Alternative: Service Account (Production)
+You can also test your storage connection specifically:
 
-For production environments, use a service account key file:
+```bash
+python scripts/test_storage.py
+```
+
+### Production & Cloud Deployment
+
+#### Option 1: Service Account Key (General Production)
+
+For production environments and cloud deployments, use a service account key file:
 
 1. Create a service account in the Google Cloud Console
-2. Download the JSON key file
-3. Set the environment variable:
+2. Grant necessary permissions (e.g., Storage Admin)
+3. Download the JSON key file
+4. **Securely store it** in the `credentials/` directory (never commit to git!)
+5. Set the environment variable:
 
    ```bash
-   export GOOGLE_APPLICATION_CREDENTIALS="path/to/your/service-account-key.json"
+   export GOOGLE_APPLICATION_CREDENTIALS="path/to/your/project/credentials/service-account-key.json"
    ```
+
+   **Note:** The `credentials/` directory is gitignored for security.
+
+#### Option 2: Workload Identity (Google Cloud Services)
+
+If deploying to Google Cloud services (Cloud Run, GKE, Compute Engine):
+
+1. Enable Workload Identity on your cluster/service
+2. Bind your Kubernetes service account to a Google service account
+3. No explicit authentication needed in code:
+
+   ```python
+   from google.cloud import storage
+   # Automatically uses the service's identity
+   client = storage.Client()
+   ```
+
+#### ❌ Don't Use for Cloud Deployment
+
+**Google Colab authentication** (only for Colab notebooks):
+
+```python
+# DON'T use this for cloud deployment
+from google.colab import auth
+auth.authenticate_user(project_id="PROJECT_ID")
+```
 
 ### Environment Configuration
 
@@ -119,24 +155,55 @@ For production environments, use a service account key file:
 
 ## Usage
 
+### Local Development (with ADC)
+
 ```python
 from google.cloud import storage
 
-# Initialize the client (uses Application Default Credentials)
+# Uses Application Default Credentials (from gcloud auth application-default login)
 client = storage.Client()
 
 # Example: List buckets
 buckets = client.list_buckets()
 for bucket in buckets:
     print(f"Bucket: {bucket.name}")
+```
 
-# Example: Upload a file
+### Production with Service Account
+
+```python
+from google.cloud import storage
+import os
+
+# Method 1: Using environment variable
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '/path/to/service-account-key.json'
+client = storage.Client()
+
+# Method 2: Direct file path
+client = storage.Client.from_service_account_json('/path/to/service-account-key.json')
+
+# Method 3: Using project ID explicitly
+client = storage.Client(project='your-project-id')
+```
+
+### Common Operations
+
+```python
+# Upload a file
 bucket = client.bucket('your-bucket-name')
 blob = bucket.blob('your-file-name')
 blob.upload_from_filename('local-file-path')
+
+# Download a file
+blob.download_to_filename('downloaded-file.txt')
+
+# List objects in bucket
+blobs = bucket.list_blobs()
+for blob in blobs:
+    print(f"File: {blob.name}")
 ```
 
-**Note**: Make sure you have completed the Google Cloud authentication setup before running the code.
+**Note**: Make sure you have completed the appropriate authentication setup before running the code.
 
 ## Development
 
