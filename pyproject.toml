@@ -12,6 +12,7 @@ dependencies = [
     "python-dotenv (>=1.1.1,<2.0.0)",
     "google-cloud-aiplatform (>=1.60.0,<2.0.0)",
     "ipykernel (>=6.30.0,<7.0.0)",
+    "langchain",
     "langchain-core (>=0.3.72,<0.4.0)",
     "langchain-google-vertexai (>=2.0.27,<3.0.0)"
 ]
