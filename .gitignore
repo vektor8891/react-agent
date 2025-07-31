@@ -1,2 +1,33 @@
 # VS Code files
 *.code-workspace
+
+# Environment variables
+.env
+.env.local
+
+# Google Cloud credentials
+service-account-key.json
+*-key.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Poetry
+poetry.lock
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
