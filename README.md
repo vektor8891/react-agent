@@ -1,15 +1,17 @@
 # React Agent
 
-A LangGraph ReAct (Reasoning and Acting) agent implementation.
+A LangGraph ReAct (Reasoning and Acting) agent implementation with Google Vertex AI integration.
 
 ## Description
 
-This project implements a ReAct agent using LangGraph, which combines reasoning and acting in language models to solve complex tasks through iterative thought, action, and observation cycles.
+This project implements a ReAct agent using LangGraph, which combines reasoning and acting in language models to solve complex tasks through iterative thought, action, and observation cycles. The agent leverages Google Vertex AI for advanced AI capabilities and Google Cloud Storage for data management.
 
 ## Features
 
 - ReAct agent pattern implementation
 - LangGraph integration for workflow orchestration
+- Google Vertex AI integration for AI services
+- Google Cloud Storage for data persistence
 - Extensible action framework
 - Interactive reasoning capabilities
 
@@ -18,6 +20,7 @@ This project implements a ReAct agent using LangGraph, which combines reasoning 
 - Python >=3.12
 - Poetry for dependency management
 - Google Cloud SDK (for authentication)
+- Google Cloud Project with Vertex AI API enabled
 
 ## Installation
 
@@ -31,7 +34,7 @@ This project implements a ReAct agent using LangGraph, which combines reasoning 
 2. Install dependencies using Poetry:
 
     ```bash
-    poetry install
+    poetry install --no-root
     ```
 
 3. Activate the virtual environment:
@@ -153,7 +156,41 @@ auth.authenticate_user(project_id="PROJECT_ID")
    GOOGLE_CLOUD_PROJECT=your-actual-project-id
    ```
 
-## Usage
+## Vertex AI Setup
+
+This project integrates with Google Vertex AI for advanced AI capabilities. Follow these steps to set up Vertex AI:
+
+### Vertex AI Prerequisites
+
+1. **Enable Vertex AI API** in your Google Cloud project:
+
+   ```bash
+   gcloud services enable aiplatform.googleapis.com
+   ```
+
+2. **Configure environment variables** in your `.env` file:
+
+   ```bash
+   # Required for Vertex AI
+   GOOGLE_CLOUD_PROJECT=your-project-id
+   GOOGLE_CLOUD_LOCATION=us-central1
+   GOOGLE_CLOUD_STAGING_BUCKET=gs://your-staging-bucket
+   ```
+
+### Test Vertex AI Connection
+
+Run the provided test scripts to verify your Vertex AI setup:
+
+```bash
+# Test Vertex AI initialization
+poetry run python scripts/test_vertex_ai.py
+
+# Test your specific code pattern
+poetry run python scripts/your_code.py
+
+# Run comprehensive example
+poetry run python scripts/vertex_ai_example.py
+```
 
 ### Local Development (with ADC)
 
@@ -204,6 +241,42 @@ for blob in blobs:
 ```
 
 **Note**: Make sure you have completed the appropriate authentication setup before running the code.
+
+## Testing
+
+The project includes several test scripts to verify your setup:
+
+### Google Cloud Storage Tests
+
+```bash
+# Test Google Cloud Storage connection
+poetry run python scripts/test_storage.py
+
+# Verify Google Cloud setup
+poetry run python scripts/setup_gcloud.py
+```
+
+### Vertex AI Tests
+
+```bash
+# Basic Vertex AI connection test
+poetry run python scripts/test_vertex_ai.py
+
+# Test your specific initialization pattern
+poetry run python scripts/your_code.py
+
+# Comprehensive Vertex AI example
+poetry run python scripts/vertex_ai_example.py
+```
+
+### Expected Output
+
+If everything is configured correctly, you should see:
+
+- ✅ Successful authentication
+- ✅ Vertex AI initialization
+- ✅ Google Cloud Storage connection
+- ✅ Access to agent_engines and other services
 
 ## Development
 

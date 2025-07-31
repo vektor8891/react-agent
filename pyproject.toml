@@ -8,9 +8,13 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "google-cloud-storage (>=3.2.0,<4.0.0)",
-    "python-dotenv (>=1.1.1,<2.0.0)"
+    "google-cloud-storage (>=2.0.0,<4.0.0)",
+    "python-dotenv (>=1.1.1,<2.0.0)",
+    "google-cloud-aiplatform (>=1.60.0,<2.0.0)"
 ]
+
+[tool.poetry]
+package-mode = false
 
 
 [build-system]
