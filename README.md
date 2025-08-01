@@ -132,16 +132,6 @@ If deploying to Google Cloud services (Cloud Run, GKE, Compute Engine):
    client = storage.Client()
    ```
 
-#### ❌ Don't Use for Cloud Deployment
-
-**Google Colab authentication** (only for Colab notebooks):
-
-```python
-# DON'T use this for cloud deployment
-from google.colab import auth
-auth.authenticate_user(project_id="PROJECT_ID")
-```
-
 ### Environment Configuration
 
 1. Copy the environment template:
